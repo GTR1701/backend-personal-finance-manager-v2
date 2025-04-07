@@ -6,9 +6,13 @@ import { PrismaService } from './prisma/prisma.service';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import { BalanceModule } from './balance/balance.module';
+import { IncomeModule } from './income/income.module';
+import { ExpenseModule } from './expense/expense.module';
+import { TypeModule } from './type/type.module';
 
 @Module({
-  imports: [UserModule, AuthModule],
+  imports: [UserModule, AuthModule, BalanceModule, IncomeModule, ExpenseModule, TypeModule],
   controllers: [AppController, AuthController],
   providers: [UserService, PrismaService, AuthService],
 })

@@ -17,4 +17,59 @@ model User {
   id       Int    @id @default(autoincrement())
   username String @unique
   password String
+  balance  Float  @default(0)
+
+  Balance UserBalanceByMonth[]
+  Expense Expense[]
+  Income  Income[]
+}
+
+model UserBalanceByMonth {
+  id      Int   @id @default(autoincrement())
+  userId  Int
+  month   Int
+  year    Int
+  balance Float
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Type {
+  id                Int    @id @default(autoincrement())
+  typeName          String
+  transactionTypeId Int
+
+  transactionType TransactionType @relation(fields: [transactionTypeId], references: [id])
+}
+
+model TransactionType {
+  id       Int    @id @default(autoincrement())
+  typeName String
+
+  Type    Type[]
+  Expense Expense[]
+  Income  Income[]
+}
+
+model Expense {
+  id                Int      @id @default(autoincrement())
+  userId            Int
+  typeId            Int
+  transactionTypeId Int
+  amount            Float
+  transactionDate   DateTime @default(now()) @db.Date
+
+  transactionType TransactionType @relation(fields: [transactionTypeId], references: [id])
+  user            User            @relation(fields: [userId], references: [id])
+}
+
+model Income {
+  id                Int   @id @default(autoincrement())
+  userId            Int
+  typeId            Int
+  transactionTypeId Int
+  amount            Float
+
+  transactionType TransactionType @relation(fields: [transactionTypeId], references: [id])
+  user            User            @relation(fields: [userId], references: [id])
 }
