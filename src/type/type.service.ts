@@ -1,45 +1,43 @@
-import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Type } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { TypeDto } from './types/TypeDto';
+import type { TypeDto } from './types/TypeDto';
+import type { TypeParams } from './types/TypeParams'
 
 @Injectable()
 export class TypeService {
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(private readonly prisma: PrismaService) { }
 
-    async getTypes(): Promise<Type[] | null> {
+    async getTypes(): Promise<Type[]> {
         return this.prisma.type.findMany()
     }
-    
-    async getTypesByTransactionType(transactionType: string): Promise<Type[] | null> {
+
+    async getFilteredType(params: TypeParams): Promise<Type[]> {
+        const { skip, take, cursor, where, orderBy } = params
         return this.prisma.type.findMany({
-            where: {
-                transactionType
-            },
+            skip, take, cursor, where, orderBy
         })
     }
 
-    async createType(type: TypeDto): Promise<string | BadRequestException> {
-        try {
-            await this.prisma.type.create({
-                data: type
-            })
-            return "Type created successfully"
-        } catch {
-            return new BadRequestException()
-        }
+    async createType(data: TypeDto): Promise<Type> {
+        return this.prisma.type.create({
+            data
+        })
     }
 
-    async editType(typeId: number): Promise<string | NotFoundException> {
-        try {
-            await this.prisma.type.delete({
-                where: {
-                    id: typeId
-                }
-            })
-            return "Type deleted successfully"
-        } catch {
-            return new NotFoundException()
-        }
+    async deleteType(typeId: number): Promise<Type> {
+        return await this.prisma.type.delete({
+            where: {
+                id: typeId
+            }
+        })
+    }
+    async editType(data: Type): Promise<Type> {
+        return await this.prisma.type.update({
+            where: {
+                id: data.id
+            },
+            data
+        })
     }
 }
