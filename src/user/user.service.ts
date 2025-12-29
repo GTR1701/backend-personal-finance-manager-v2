@@ -1,9 +1,10 @@
 // users.service.ts
-import { User } from "src/user/user.entity";
 import { Repository } from "typeorm";
 
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+
+import { User } from "./user.entity";
 
 @Injectable()
 export class UserService {
