@@ -1,10 +1,15 @@
+import {
+  mockDataSource,
+  mockRepositoryFactory,
+} from "test/mocks/datasource.mock";
 import { DataSource } from "typeorm";
 
 import type { TestingModule } from "@nestjs/testing";
 import { Test } from "@nestjs/testing";
+import { getRepositoryToken } from "@nestjs/typeorm";
 
 import { UserController } from "./user.controller";
-import { UserModule } from "./user.module";
+import { User } from "./user.entity";
 import { UserService } from "./user.service";
 
 describe("UserService", () => {
@@ -12,9 +17,18 @@ describe("UserService", () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService, DataSource],
       controllers: [UserController],
-      imports: [UserModule],
+      providers: [
+        UserService,
+        {
+          provide: getRepositoryToken(User),
+          useFactory: mockRepositoryFactory,
+        },
+        {
+          provide: DataSource,
+          useValue: mockDataSource,
+        },
+      ],
     }).compile();
 
     service = module.get<UserService>(UserService);

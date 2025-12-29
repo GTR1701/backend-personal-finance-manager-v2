@@ -37,7 +37,17 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/src/$1",
+      "^test/(.*)$": "<rootDir>/test/$1",
+      "^config/(.*)$": "<rootDir>/config/$1"
+    },
+    "rootDir": "./",
+    "roots": [
+      "<rootDir>/src",
+      "<rootDir>/test",
+      "<rootDir>/config"
+    ],
     "testEnvironment": "node",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
