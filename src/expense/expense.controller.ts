@@ -8,7 +8,7 @@ import {
   Post,
 } from "@nestjs/common";
 
-import { ExpenseDTO } from "./dto/expense.dto";
+import { ExpenseDTO } from "./expense.dto";
 import { ExpenseService } from "./expense.service";
 
 @Controller("expense")
