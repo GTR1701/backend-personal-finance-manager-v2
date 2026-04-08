@@ -1,3 +1,4 @@
+import { Account } from "src/account/account.entity";
 import { SubscriptionType } from "src/subscription-type/subscription-type.entity";
 import { User } from "src/user/user.entity";
 import {
@@ -22,6 +23,9 @@ export class Subscription {
 
   @ManyToOne(() => User, (user) => user.subscriptions)
   user: User;
+
+  @ManyToOne(() => Account, (account) => account.subscriptions)
+  account: Account;
 
   @ManyToOne(() => SubscriptionType, (type) => type.subscriptions)
   subscriptionType: SubscriptionType;

@@ -4,8 +4,11 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
+import { AccountTypeModule } from "./account-type/account-type.module";
+import { AccountModule } from "./account/account.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { CurrencyModule } from "./currency/currency.module";
 import { ExpenseTypeModule } from "./expense-type/expense-type.module";
 import { ExpenseModule } from "./expense/expense.module";
 import { IncomeTypeModule } from "./income-type/income-type.module";
@@ -33,6 +36,9 @@ import { UserModule } from "./user/user.module";
     ExpenseTypeModule,
     IncomeTypeModule,
     SubscriptionTypeModule,
+    AccountModule,
+    AccountTypeModule,
+    CurrencyModule,
   ],
   controllers: [AppController],
   providers: [AppService],
