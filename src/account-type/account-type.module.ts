@@ -10,4 +10,4 @@ import { AccountTypeService } from "./account-type.service";
   controllers: [AccountTypeController],
   providers: [AccountTypeService],
 })
-export class ExpenseTypeModule {}
+export class AccountTypeModule {}

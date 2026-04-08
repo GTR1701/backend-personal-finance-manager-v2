@@ -1,3 +1,4 @@
+import { Account } from "src/account/account.entity";
 import { ExpenseType } from "src/expense-type/expense-type.entity";
 import { User } from "src/user/user.entity";
 import {
@@ -22,6 +23,9 @@ export class Expense {
 
   @ManyToOne(() => User, (user) => user.expenses)
   user: User;
+
+  @ManyToOne(() => Account, (account) => account.expenses)
+  account: Account;
 
   @ManyToOne(() => ExpenseType, (type) => type.expenses)
   expenseType: ExpenseType;

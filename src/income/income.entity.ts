@@ -1,3 +1,4 @@
+import { Account } from "src/account/account.entity";
 import { IncomeType } from "src/income-type/income-type.entity";
 import { User } from "src/user/user.entity";
 import {
@@ -22,6 +23,9 @@ export class Income {
 
   @ManyToOne(() => User, (user) => user.incomes)
   user: User;
+
+  @ManyToOne(() => Account, (account) => account.expenses)
+  account: Account;
 
   @ManyToOne(() => IncomeType, (type) => type.incomes)
   incomeType: IncomeType;
