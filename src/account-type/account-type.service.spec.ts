@@ -8,20 +8,20 @@ import type { TestingModule } from "@nestjs/testing";
 import { Test } from "@nestjs/testing";
 import { getRepositoryToken } from "@nestjs/typeorm";
 
-import { ExpenseTypeController } from "./account-type.controller";
-import { ExpenseType } from "./account-type.entity";
+import { AccountTypeController } from "./account-type.controller";
+import { AccountType } from "./account-type.entity";
 import { AccountTypeService } from "./account-type.service";
 
-describe("ExpenseTypeService", () => {
+describe("AccountTypeService", () => {
   let service: AccountTypeService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ExpenseTypeController],
+      controllers: [AccountTypeController],
       providers: [
         AccountTypeService,
         {
-          provide: getRepositoryToken(ExpenseType),
+          provide: getRepositoryToken(AccountType),
           useFactory: mockRepositoryFactory,
         },
         {

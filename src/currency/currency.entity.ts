@@ -4,14 +4,14 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Currency {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
 
   @Column({ length: 256 })
-  name!: string;
+  name: string;
 
   @Column("float")
-  value!: number;
+  value: number;
 
   @OneToMany(() => Account, (account) => account.currency)
-  accounts!: Account[];
+  accounts: Account[];
 }
