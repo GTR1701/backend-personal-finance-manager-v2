@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -24,6 +24,16 @@ export class UserService {
     return response;
   }
 
+  async findOneByUsername(username: string): Promise<User> {
+    const response = await this.userRepository.findOne({
+      where: { username },
+    });
+    if (response == null) {
+      throw new NotFoundException("User not found");
+    }
+    return response;
+  }
+
   async create(userData: Partial<User>): Promise<User> {
     const existingUser = await this.userRepository.findOne({
       where: { username: userData.username },
@@ -36,14 +46,12 @@ export class UserService {
     return await this.userRepository.save(newUser);
   }
 
-  async updateUser(id: number, userData: Partial<User>): Promise<User> {
-    const user = await this.findOne(id);
-
-    Object.assign(user, userData);
-    return await this.userRepository.save(user);
+  async updateUser(id: number, userData: Partial<User>): Promise<UpdateResult> {
+    await this.findOne(id);
+    return await this.userRepository.update(id, userData);
   }
 
-  async delete(id: number): Promise<void> {
+  async deleteUser(id: number): Promise<void> {
     const user = await this.findOne(id);
     await this.userRepository.remove(user);
   }

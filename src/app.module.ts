@@ -8,6 +8,7 @@ import { AccountTypeModule } from "./account-type/account-type.module";
 import { AccountModule } from "./account/account.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { AuthModule } from "./auth/auth.module";
 import { CurrencyModule } from "./currency/currency.module";
 import { ExpenseTypeModule } from "./expense-type/expense-type.module";
 import { ExpenseModule } from "./expense/expense.module";
@@ -39,6 +40,7 @@ import { UserModule } from "./user/user.module";
     AccountModule,
     AccountTypeModule,
     CurrencyModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
